@@ -1,0 +1,30 @@
+services:
+
+  database:
+    image: postgres:17
+    container_name: task-manager-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: task_manager
+      POSTGRES_USER: task_manager
+      POSTGRES_PASSWORD: task_manager
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    image: ghcr.io/joaocguerra/task-manager:${IMAGE_TAG}
+    container_name: task-manager-api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:postgresql://database:5432/task_manager
+      DB_USERNAME: task_manager
+      DB_PASSWORD: task_manager
+    depends_on:
+      - database
+
+volumes:
+  postgres_data:
