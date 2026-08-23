@@ -63,4 +63,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/joaocguerra/task-manager:latest
+          tags: |
+            ghcr.io/joaocguerra/task-manager:latest
+            ghcr.io/joaocguerra/task-manager:${{ github.sha }}
