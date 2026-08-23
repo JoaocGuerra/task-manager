@@ -46,3 +46,6 @@ jobs:
           DB_USERNAME: task_manager
           DB_PASSWORD: task_manager
         run: ./mvnw test
+
+      - name: Build Docker image
+        run: docker build -t task-manager:ci .
